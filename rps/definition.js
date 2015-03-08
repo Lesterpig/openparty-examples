@@ -35,6 +35,7 @@ module.exports = function() {
             "warmup": {
                 start: function(room, callback) {
                     callback(null, 2);
+                    e.player.score = 0;
                 },
                 end: function(room, callback) {
                     room.nextStage("choose");
@@ -60,7 +61,7 @@ module.exports = function() {
                     var bChoice = room.players[1].player.choice;
 
                     var score = 1;
-                    
+
                     if(aChoice === "Rock"     && bChoice === "Scissors" ||
                        aChoice === "Paper"    && bChoice === "Rock"     ||
                        aChoice === "Scissors" && bChoice === "Paper")
@@ -69,7 +70,7 @@ module.exports = function() {
                     if(aChoice === bChoice)
                         score = 0;
 
-                    room.message(room.players[0].username + " has chosen <strong>" + aChoice + "</strong> and " + 
+                    room.message(room.players[0].username + " has chosen <strong>" + aChoice + "</strong> and " +
                                  room.players[1].username + " has chosen <strong>" + bChoice + "</strong>.");
 
                     switch(score) {
@@ -81,6 +82,10 @@ module.exports = function() {
                             room.message(room.players[1].username + " won!");
                             room.players[1].player.score++;
                             break;
+                    }
+
+                    for(var i = 0; i < 2; i++) {
+                        room.playerInfo(room.players[i], room.players[i].username + " : " + room.players[i].player.score);
                     }
 
                     callback(null, 5);

@@ -3,8 +3,8 @@ module.exports = function() {
   var playerRole = {
     actions: {
       choose: {
-        isAvailable: function(room) {
-          return room.currentStage === "choose";
+        isAvailable: function(player) {
+          return player.room.currentStage === "choose";
         },
         type: "select",
         options: {
